@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management System - Students</title>
+</head>
+<body>
+    <h1>Student Management System - Students</h1>
+
+    <h2>Add Student</h2>
+    <form method="POST" action="/students">
+        {{ form.csrf_token }}
+        {{ form.name.label }}: {{ form.name }}<br>
+        {{ form.roll_number.label }}: {{ form.roll_number }}<br>
+        {{ form.submit }}
+    </form>
+
+    <h2>Student List</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Roll Number</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.roll_number }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

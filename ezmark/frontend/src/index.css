@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply font-ubuntu;
+}
+
+
+/* Custom scrollbar */
+/* width */
+::-webkit-scrollbar {
+    @apply w-0 md:w-[5px];
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-light;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-dark;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-darker;
+  }

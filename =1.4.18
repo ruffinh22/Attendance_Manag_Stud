@@ -1,3 +1,0 @@
-Requirement already satisfied: SQLAlchemy in /home/lidruf/anaconda3/lib/python3.9/site-packages (2.0.16)
-Requirement already satisfied: typing-extensions>=4.2.0 in /home/lidruf/anaconda3/lib/python3.9/site-packages (from SQLAlchemy) (4.6.3)
-Requirement already satisfied: greenlet!=0.4.17 in /home/lidruf/anaconda3/lib/python3.9/site-packages (from SQLAlchemy) (2.0.2)

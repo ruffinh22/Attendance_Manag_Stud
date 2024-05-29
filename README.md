@@ -19,6 +19,5 @@ ezMark is derived from 2 words, *easy* and *mark* that means mark attendance of 
 3. Charts/Graphs on admin panel for more understandability.
 
 ## Contributors👥
-<a href="https://github.com/Atharv-110/ezmark/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Atharv-110/ezmark" />
+<a href="https://github.com/ruffinh22/graphs/contributors">
 </a>

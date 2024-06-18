@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'attendance.urls'
+ROOT_URLCONF = 'attendence.urls'
 
 # Configuration des paramètres JWT
 SIMPLE_JWT = {
@@ -93,7 +93,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'attendance.wsgi.application'
+WSGI_APPLICATION = 'attendence.wsgi.application'
 
 DATABASES = {
     'default': {

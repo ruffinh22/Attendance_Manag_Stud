@@ -10,7 +10,7 @@ check_error() {
 
 # Mettre à jour les paquets et installer Python et pip
 echo "Mise à jour des paquets et installation de Python et pip..."
-apt update && apt install -y python3 python3-pip
+apt install -y python3 python3-pip
 check_error
 
 # Installer les dépendances pour psycopg2 (PostgreSQL)
@@ -29,15 +29,7 @@ apt install -y postgresql postgresql-contrib
 check_error
 
 # Configurer PostgreSQL
-echo "Configuration de PostgreSQL..."
-# Créer une base de données et un utilisateur pour Django
-sudo -u postgres psql -c "CREATE DATABASE attendance_3r8v;"
-sudo -u postgres psql -c "CREATE USER admin WITH PASSWORD 'wI8I8Pl3DNrFNKFrEAYC9McJjEll3Iyx';"
-sudo -u postgres psql -c "ALTER ROLE admin SET client_encoding TO 'utf8';"
-sudo -u postgres psql -c "ALTER ROLE admin SET default_transaction_isolation TO 'read committed';"
-sudo -u postgres psql -c "ALTER ROLE admin SET timezone TO 'UTC';"
-sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE attendance_3r8v TO admin;"
-check_error
+
 
 # Vérifier et ajuster les permissions du socket PostgreSQL (si nécessaire)
 # Exemple:

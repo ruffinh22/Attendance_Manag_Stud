@@ -1,11 +1,13 @@
 #!/bin/bash
-echo "Mise à jour du système.."
 
-apt install python3-dev default-libmysqlclient-dev build-essential
+echo "Mise à jour du système..."
 
 # Mettre à jour le système
-echo "Mise à jour du système..."
-apt update && sudo apt upgrade -y
+apt update && apt upgrade -y
+
+# Installer les dépendances nécessaires pour MySQL et Python
+echo "Installation des dépendances pour MySQL et Python..."
+apt install python3-dev default-libmysqlclient-dev build-essential -y
 
 # Installer MySQL
 echo "Installation de MySQL..."
@@ -28,7 +30,7 @@ MYSQL_SCRIPT
 echo "Installation de MongoDB..."
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-apt update 
+apt update
 apt install -y mongodb-org
 
 # Démarrer MongoDB
@@ -55,7 +57,7 @@ MONGO_SCRIPT
 
 # Installer Python et pip
 echo "Installation de Python et pip..."
-sudo apt install python3 python3-pip -y
+apt install python3 python3-pip -y
 
 # Installer les dépendances Python
 echo "Installation des dépendances Python..."

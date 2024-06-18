@@ -1,4 +1,8 @@
 #!/bin/bash
+echo "Mise à jour du système.."
+
+sudo apt install python3-dev default-libmysqlclient-dev build-essential
+pip install mysqlclient
 
 # Mettre à jour le système
 echo "Mise à jour du système..."

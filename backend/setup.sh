@@ -3,11 +3,7 @@
 # Fonction pour vérifier le code de sortie de la dernière commande et arrêter le script en cas d'erreur
 
 
-# Vérifier les privilèges root
-if [ "$(id -u)" -ne 0 ]; then
-  echo "Ce script doit être exécuté en tant que root."
-  exit 1
-fi
+
 
 # Mettre à jour les paquets et installer Python et pip
 echo "Mise à jour des paquets et installation de Python et pip..."

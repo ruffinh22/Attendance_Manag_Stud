@@ -26,6 +26,15 @@ GRANT ALL PRIVILEGES ON attendance.* TO 'admin'@'localhost';
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
 
+# Vérifier et ajuster les permissions du socket MySQL
+echo "Vérification des permissions du socket MySQL..."
+chown mysql:mysql /var/run/mysqld/mysqld.sock
+chmod 777 /var/run/mysqld/mysqld.sock
+
+# Redémarrer MySQL pour appliquer les changements
+echo "Redémarrage de MySQL..."
+systemctl restart mysql
+
 # Installer MongoDB
 echo "Installation de MongoDB..."
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -

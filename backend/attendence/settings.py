@@ -20,9 +20,7 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = '#~>^4PR62=oq*@k`!pb}?@>D$A$lHWmTjE@tYv;Jvl%xSr:a:"'
-import atexit
-
+SECRET_KEY = os.getenv('SECRET_KEY', '#~>^4PR62=oq*@k`!pb}?@>D$A$lHWmTjE@tYv;Jvl%xSr:a:"')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -30,9 +28,9 @@ import atexit
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG') == 'True'
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '10.210.100.123']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',  # Activation de l'interface d'administration Django
@@ -59,50 +57,23 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'attendence.urls'
+ROOT_URLCONF = 'attendance.urls'
 
 # Configuration des paramètres JWT
 SIMPLE_JWT = {
-    # Durée de vie du token d'accès (par exemple, 20 minutes)
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
-    
-    # Durée de vie du token de rafraîchissement (par exemple, 1 jour)
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    
-    # Rotation des tokens de rafraîchissement
     "ROTATE_REFRESH_TOKENS": False,
-    
-    # Blacklistage des tokens après rotation
     "BLACKLIST_AFTER_ROTATION": False,
-    
-    # Mise à jour de la dernière connexion de l'utilisateur
     "UPDATE_LAST_LOGIN": False,
-
-    # Types d'en-tête d'authentification pris en charge
     "AUTH_HEADER_TYPES": ("Bearer",),
-    
-    # Nom de l'en-tête d'authentification
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
-    
-    # Champ ID de l'utilisateur
     "USER_ID_FIELD": "id",
-    
-    # Claim ID de l'utilisateur
     "USER_ID_CLAIM": "user_id",
-    
-    # Règle d'authentification de l'utilisateur par défaut
     "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
-
-    # Classes de token d'authentification prises en charge
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
-    
-    # Claim de type de token
     "TOKEN_TYPE_CLAIM": "token_type",
-    
-    # Classe utilisateur de token
     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
-
-    # Claim JTI (JWT ID)
     "JTI_CLAIM": "jti",
 }
 
@@ -122,37 +93,18 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'attendence.wsgi.application'
-
+WSGI_APPLICATION = 'attendance.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'attendance',
-        'USER': 'admin',
-        'PASSWORD': 'Admin123123@',
-        'HOST': 'localhost',  # Ou l'adresse IP de votre serveur MySQL
-        'PORT': '3306',       # Le port par défaut de MySQL
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'attendance'),
+        'USER': os.getenv('DB_USER', 'admin'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'Admin123123@'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
-
-
-DATABASE = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'attendance',  # Remplacez par le nom de votre base de données MongoDB
-        'ENFORCE_SCHEMA': True,  # Facultatif : Définissez sur True pour appliquer des contraintes de schéma
-        'CLIENT': {
-            'host': 'localhost',
-            'port': 27017,
-            'username': 'admin1',  # Remplacez par votre nom d'utilisateur MongoDB
-            'password': 'admin123',  # Remplacez par votre mot de passe MongoDB
-            'authSource': 'admin',
-            'authMechanism': 'SCRAM-SHA-1',
-        }
-    }
-}
-
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -213,15 +165,7 @@ STORAGES = {
 }
 
 # CORS settings
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-
-    # Add other origins as needed
-]
-
-
-
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173').split(',')
 
 LOGGING = {
     'version': 1,
@@ -252,13 +196,11 @@ LOGGING = {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': True,
-            'filters': [],  # Ajoutez des filtres si nécessaire
         },
         'firstapp': {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
             'propagate': True,
-            'filters': [],  # Ajoutez des filtres si nécessaire
         },
     },
 }

@@ -1,24 +1,23 @@
 #!/bin/bash
 echo "Mise à jour du système.."
 
-sudo apt install python3-dev default-libmysqlclient-dev build-essential
-pip install mysqlclient
+apt install python3-dev default-libmysqlclient-dev build-essential
 
 # Mettre à jour le système
 echo "Mise à jour du système..."
-sudo apt update && sudo apt upgrade -y
+apt update && sudo apt upgrade -y
 
 # Installer MySQL
 echo "Installation de MySQL..."
-sudo apt install mysql-server -y
+apt install mysql-server -y
 
 # Sécuriser l'installation de MySQL
 echo "Sécurisation de MySQL..."
-sudo mysql_secure_installation
+mysql_secure_installation
 
 # Créer la base de données et l'utilisateur MySQL
 echo "Configuration de MySQL..."
-sudo mysql -u root -p <<MYSQL_SCRIPT
+mysql -u root -p <<MYSQL_SCRIPT
 CREATE DATABASE attendance;
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'Admin123123@';
 GRANT ALL PRIVILEGES ON attendance.* TO 'admin'@'localhost';
@@ -29,13 +28,13 @@ MYSQL_SCRIPT
 echo "Installation de MongoDB..."
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-sudo apt update
-sudo apt install -y mongodb-org
+apt update 
+apt install -y mongodb-org
 
 # Démarrer MongoDB
 echo "Démarrage de MongoDB..."
-sudo systemctl start mongod
-sudo systemctl enable mongod
+systemctl start mongod
+systemctl enable mongod
 
 # Configurer MongoDB
 echo "Configuration de MongoDB..."

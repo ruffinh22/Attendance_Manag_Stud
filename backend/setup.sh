@@ -1,58 +1,62 @@
 #!/bin/bash
-
+su
 # Fonction pour vérifier le code de sortie de la dernière commande et arrêter le script en cas d'erreur
 check_error() {
   if [ $? -ne 0 ]; then
     echo "Erreur détectée. Arrêt du script."
-    exit 0
+    exit 1
   fi
 }
 
+# Vérifier les privilèges root
+if [ "$(id -u)" -ne 0 ]; then
+  echo "Ce script doit être exécuté en tant que root."
+  exit 1
+fi
+
 # Mettre à jour les paquets et installer Python et pip
 echo "Mise à jour des paquets et installation de Python et pip..."
+apt update
+check_error
+apt install -y python3 python3-pip
+check_error
 
 # Installer les dépendances pour psycopg2 (PostgreSQL)
 echo "Installation des dépendances pour psycopg2..."
-apt install  python-dev libpq-dev
+apt install -y python3-dev libpq-dev
 check_error
 
 # Installer psycopg2
 echo "Installation de psycopg2..."
-pip install psycopg2-binary
+pip3 install psycopg2-binary
 check_error
 
 # Installer PostgreSQL
 echo "Installation de PostgreSQL..."
-apt install postgresql postgresql-contrib
+apt install -y postgresql postgresql-contrib
 check_error
 
 # Configurer PostgreSQL
-
-
-# Vérifier et ajuster les permissions du socket PostgreSQL (si nécessaire)
-# Exemple:
-# chown postgres:postgres /var/run/postgresql
-# chmod 775 /var/run/postgresql
-# check_error
+# Ici, vous pouvez ajouter des configurations spécifiques à PostgreSQL si nécessaire.
 
 # Redémarrer PostgreSQL pour appliquer les changements
 echo "Redémarrage de PostgreSQL..."
 systemctl restart postgresql
 check_error
 
-# Installer les dépendances Python
+# Installer les dépendances Python de votre projet
 echo "Installation des dépendances Python..."
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 check_error
 
 # Appliquer les migrations Django
 echo "Application des migrations Django..."
-python manage.py migrate
+python3 manage.py migrate
 check_error
 
 # Collecter les fichiers statiques
 echo "Collecte des fichiers statiques..."
-python manage.py collectstatic --noinput
+python3 manage.py collectstatic --noinput
 check_error
 
 # Démarrer le serveur Django
@@ -60,4 +64,4 @@ echo "Démarrage du serveur Django..."
 python3 manage.py runserver 0.0.0.0:8000
 check_error
 
-echo "Installation et configuration terminées !"
+echo "Installation et configuration terminées avec succès !"

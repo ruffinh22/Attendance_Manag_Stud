@@ -166,8 +166,12 @@ STORAGES = {
 }
 
 # CORS settings
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173').split(',')
-
+CORS_ALLOWED_ORIGINS = [
+    "https://ruffinh22.github.io",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    # Ajoutez d'autres origines si nécessaire
+]
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

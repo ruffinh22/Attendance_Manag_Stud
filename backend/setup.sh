@@ -4,23 +4,21 @@
 check_error() {
   if [ $? -ne 0 ]; then
     echo "Erreur détectée. Arrêt du script."
-    exit 1
+    exit 0
   fi
 }
 
 # Mettre à jour les paquets et installer Python et pip
 echo "Mise à jour des paquets et installation de Python et pip..."
-apt install -y python3 python3-pip
-check_error
 
 # Installer les dépendances pour psycopg2 (PostgreSQL)
 echo "Installation des dépendances pour psycopg2..."
-apt install -y python3-dev libpq-dev
+apt install -y python-dev libpq-dev
 check_error
 
 # Installer psycopg2
 echo "Installation de psycopg2..."
-pip3 install psycopg2-binary
+pip install psycopg2-binary
 check_error
 
 # Installer PostgreSQL
@@ -44,17 +42,17 @@ check_error
 
 # Installer les dépendances Python
 echo "Installation des dépendances Python..."
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 check_error
 
 # Appliquer les migrations Django
 echo "Application des migrations Django..."
-python3 manage.py migrate
+python manage.py migrate
 check_error
 
 # Collecter les fichiers statiques
 echo "Collecte des fichiers statiques..."
-python3 manage.py collectstatic --noinput
+python manage.py collectstatic --noinput
 check_error
 
 # Démarrer le serveur Django

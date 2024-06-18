@@ -1,13 +1,20 @@
 #!/bin/bash
 
-echo "Mise à jour du système..."
 
-# Mettre à jour le système
-apt update && apt upgrade -y
+# Installer Python et pip
+echo "Installation de Python et pip..."
+sudo apt update
+sudo apt install -y python3 python3-pip
 
-# Installer les dépendances nécessaires pour MySQL et Python
-echo "Installation des dépendances pour MySQL et Python..."
-apt install python3-dev default-libmysqlclient-dev build-essential -y
+# Installer les dépendances pour mysqlclient
+echo "Installation des dépendances pour mysqlclient..."
+sudo apt install -y python3-dev default-libmysqlclient-dev build-essential
+
+# Installer mysqlclient
+echo "Installation de mysqlclient..."
+pip3 install mysqlclient
+
+# Autres étapes de configuration (MySQL, MongoDB, Django migrations, etc.)
 
 # Installer MySQL
 echo "Installation de MySQL..."

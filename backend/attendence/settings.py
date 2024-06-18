@@ -98,13 +98,14 @@ WSGI_APPLICATION = 'attendance.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'attendance'),
-        'USER': os.getenv('DB_USER', 'admin'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'Admin123123@'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
+        'NAME': 'attendance_3r8v',
+        'USER': 'admin',
+        'PASSWORD': 'wI8I8Pl3DNrFNKFrEAYC9McJjEll3Iyx',
+        'HOST': 'dpg-cpoinq2j1k6c73a81if0-a',
+        'PORT': '5432',  # Le port par défaut pour PostgreSQL
     }
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

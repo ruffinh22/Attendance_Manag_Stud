@@ -13,7 +13,7 @@ echo "Mise à jour des paquets et installation de Python et pip..."
 
 # Installer les dépendances pour psycopg2 (PostgreSQL)
 echo "Installation des dépendances pour psycopg2..."
-apt install -y python-dev libpq-dev
+apt install  python-dev libpq-dev
 check_error
 
 # Installer psycopg2
@@ -23,7 +23,7 @@ check_error
 
 # Installer PostgreSQL
 echo "Installation de PostgreSQL..."
-apt install -y postgresql postgresql-contrib
+apt install postgresql postgresql-contrib
 check_error
 
 # Configurer PostgreSQL

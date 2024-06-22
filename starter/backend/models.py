@@ -124,4 +124,4 @@ def bad_request(error):
 
 # Ensure app.run() is called to start the Flask application
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', port=5002)

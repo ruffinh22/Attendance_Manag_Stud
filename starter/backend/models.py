@@ -24,7 +24,7 @@ db = SQLAlchemy()
 
 def setup_db(app):
     """ Binds a Flask application and a SQLAlchemy service """
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+    app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://admin:wI8I8Pl3DNrFNKFrEAYC9McJjEll3Iyx@dpg-cpoinq2j1k6c73a81if0-a/attendance_3r8v'
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
         'pool_pre_ping': True,
@@ -33,8 +33,13 @@ def setup_db(app):
         'max_overflow': 20,
         'pool_size': 20
     }
+    db.app = app
     db.init_app(app)
-    db.create_all()
+    
+    # Ensure create_all is called within an application context
+    with app.app_context():
+        db.create_all()
+
 
 # Models
 class Question(db.Model):

@@ -5,6 +5,8 @@ from flask import Flask, jsonify, request, abort
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, String, Integer
 
+from flask_sqlalchemy import SQLAlchemy
+
 # Database configuration
 db_host = "localhost:5432"
 db_user = "lidruf"
@@ -13,6 +15,13 @@ database_name = "trivia"
 datab_test = "trivia_test"
 
 database_path = f"postgresql://{db_user}:{db_pass}@{db_host}/{database_name}"
+database_test_path = f"postgresql://{db_user}:{db_pass}@{db_host}/{datab_test}"
+
+def setup_db(app, database_path=database_path):
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    db.app = app
+    db.init_app(app)
 
 # SQLAlchemy instance
 db = SQLAlchemy()

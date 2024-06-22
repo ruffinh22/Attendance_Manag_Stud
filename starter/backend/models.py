@@ -24,16 +24,15 @@ db = SQLAlchemy()
 
 def setup_db(app):
     """ Binds a Flask application and a SQLAlchemy service """
-    app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://admin:wI8I8Pl3DNrFNKFrEAYC9McJjEll3Iyx@dpg-cpoinq2j1k6c73a81if0-a/attendance_3r8v'
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-    'pool_pre_ping': True,
-    'pool_recycle': 300,
-    'pool_timeout': 100,
-    'max_overflow': 20,
-    'pool_size': 20
-}
-    db.app = app
+        'pool_pre_ping': True,
+        'pool_recycle': 300,
+        'pool_timeout': 100,
+        'max_overflow': 20,
+        'pool_size': 20
+    }
     db.init_app(app)
     db.create_all()
 
@@ -121,7 +120,3 @@ def bad_request(error):
         "error": 400,
         "message": "Bad request"
     }), 400
-
-# Ensure app.run() is called to start the Flask application
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5002)

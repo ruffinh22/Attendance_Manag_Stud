@@ -14,22 +14,25 @@ db_pass = "janvier22"
 database_name = "trivia"
 datab_test = "trivia_test"
 
-database_path = f"postgresql://{db_user}:{db_pass}@{db_host}/{database_name}"
+database_path = f"postgresql://admin:wI8I8Pl3DNrFNKFrEAYC9McJjEll3Iyx@dpg-cpoinq2j1k6c73a81if0-a/attendance_3r8v"
 database_test_path = f"postgresql://{db_user}:{db_pass}@{db_host}/{datab_test}"
 
-def setup_db(app, database_path=database_path):
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    db.app = app
-    db.init_app(app)
+
 
 # SQLAlchemy instance
 db = SQLAlchemy()
 
-def setup_db(app, database_path=database_path):
+def setup_db(app):
     """ Binds a Flask application and a SQLAlchemy service """
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+    app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://admin:wI8I8Pl3DNrFNKFrEAYC9McJjEll3Iyx@dpg-cpoinq2j1k6c73a81if0-a/attendance_3r8v'
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'pool_pre_ping': True,
+    'pool_recycle': 300,
+    'pool_timeout': 100,
+    'max_overflow': 20,
+    'pool_size': 20
+}
     db.app = app
     db.init_app(app)
     db.create_all()
